@@ -1,0 +1,174 @@
+<?xml version='1.0' standalone='yes'?>
+<!DOCTYPE PLUGIN [
+<!ENTITY name      "dracula.theme">
+<!ENTITY author    "Javier Glenn">
+<!ENTITY version   "2026.03.20l">
+<!ENTITY launch    "Settings/DraculaTheme">
+<!ENTITY pluginURL "https://github.com/charro0407/unraid-dracula/raw/refs/heads/main/dracula.theme.plg">
+]>
+<PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;" min="7.0" icon="paint-brush" support="https://github.com/charro0407/unraid-dracula">
+
+<!--
+Dracula Theme for Unraid 7.2+
+https://draculatheme.com
+
+Applies the official Dracula color palette to the Unraid WebUI.
+-->
+
+<!-- CLEANUP: remove old plugin files before install -->
+<FILE Run="/bin/bash">
+<INLINE>
+rm -rf /usr/local/emhttp/plugins/&name;
+rm -f /boot/config/plugins/&name;/dracula-theme.css
+mkdir -p /usr/local/emhttp/plugins/&name;
+mkdir -p /boot/config/plugins/&name;
+
+# Initialize config if it does not exist
+if [ ! -f /boot/config/plugins/&name;/&name;.cfg ]; then
+  echo 'SERVICE="enabled"' > /boot/config/plugins/&name;/&name;.cfg
+fi
+
+exit 0
+</INLINE>
+</FILE>
+
+<!-- SETTINGS PAGE -->
+<FILE Name="/usr/local/emhttp/plugins/&name;/DraculaTheme.page">
+<INLINE>
+<![CDATA[
+Menu="Utilities"
+Title="Dracula Theme"
+Icon="paint-brush"
+---
+<?php
+$plugin = 'dracula.theme';
+$cfg_file = "/boot/config/plugins/{$plugin}/{$plugin}.cfg";
+$cfg = parse_ini_file($cfg_file);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $service = isset($_POST['SERVICE']) ? $_POST['SERVICE'] : 'disabled';
+  $cfg['SERVICE'] = $service;
+  $ini = '';
+  foreach ($cfg as $k => $v) {
+    $ini .= "{$k}=\"{$v}\"\n";
+  }
+  file_put_contents($cfg_file, $ini);
+  // Refresh to apply changes
+  header("Location: /Settings/DraculaTheme");
+  exit;
+}
+
+$enabled = ($cfg['SERVICE'] ?? 'enabled') === 'enabled';
+?>
+
+<div style="padding: 20px;">
+  <div style="margin-bottom: 24px;">
+    <h2 style="margin: 0 0 8px 0;">🧛 Dracula Theme for Unraid</h2>
+    <p style="margin: 0; opacity: 0.7;">
+      Official Dracula color palette applied to your Unraid WebUI.<br>
+      <a href="https://draculatheme.com" target="_blank" rel="noopener">draculatheme.com</a>
+    </p>
+  </div>
+
+  <form method="POST">
+    <table class="tablesorter shift" style="max-width: 600px;">
+      <thead>
+        <tr><th colspan="2">Theme Settings</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="width: 200px;"><strong>Enable Dracula Theme</strong></td>
+          <td>
+            <select name="SERVICE">
+              <option value="enabled" <?= $enabled ? 'selected' : '' ?>>Enabled</option>
+              <option value="disabled" <?= !$enabled ? 'selected' : '' ?>>Disabled</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <input type="submit" value="Apply">
+  </form>
+
+  <div style="margin-top: 32px; padding: 16px; border-radius: 6px; background: #282A36; border: 1px solid #44475A;">
+    <h3 style="color: #F8F8F2; margin: 0 0 12px 0;">Color Palette</h3>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+      <span style="background: #282A36; color: #F8F8F2; padding: 6px 12px; border-radius: 4px; border: 1px solid #44475A; font-family: monospace;">Background #282A36</span>
+      <span style="background: #44475A; color: #F8F8F2; padding: 6px 12px; border-radius: 4px; font-family: monospace;">Current Line #44475A</span>
+      <span style="background: #F8F8F2; color: #282A36; padding: 6px 12px; border-radius: 4px; font-family: monospace;">Foreground #F8F8F2</span>
+      <span style="background: #6272A4; color: #F8F8F2; padding: 6px 12px; border-radius: 4px; font-family: monospace;">Comment #6272A4</span>
+      <span style="background: #8BE9FD; color: #282A36; padding: 6px 12px; border-radius: 4px; font-family: monospace;">Cyan #8BE9FD</span>
+      <span style="background: #50FA7B; color: #282A36; padding: 6px 12px; border-radius: 4px; font-family: monospace;">Green #50FA7B</span>
+      <span style="background: #FFB86C; color: #282A36; padding: 6px 12px; border-radius: 4px; font-family: monospace;">Orange #FFB86C</span>
+      <span style="background: #FF79C6; color: #282A36; padding: 6px 12px; border-radius: 4px; font-family: monospace;">Pink #FF79C6</span>
+      <span style="background: #BD93F9; color: #282A36; padding: 6px 12px; border-radius: 4px; font-family: monospace;">Purple #BD93F9</span>
+      <span style="background: #FF5555; color: #F8F8F2; padding: 6px 12px; border-radius: 4px; font-family: monospace;">Red #FF5555</span>
+      <span style="background: #F1FA8C; color: #282A36; padding: 6px 12px; border-radius: 4px; font-family: monospace;">Yellow #F1FA8C</span>
+    </div>
+  </div>
+
+  <div style="margin-top: 16px; opacity: 0.5; font-size: 12px;">
+    Dracula Theme v&version; by &author; &bull; Powered by <a href="https://draculatheme.com" target="_blank" rel="noopener">Dracula</a>
+  </div>
+</div>
+]]>
+</INLINE>
+</FILE>
+
+<!-- CSS LOADER PAGE — injected into every page via Buttons hook -->
+<FILE Name="/usr/local/emhttp/plugins/&name;/DraculaTheme_Loader.page">
+<INLINE>
+<![CDATA[
+Menu="Buttons:100"
+Link="nav-user"
+---
+<?php
+$plugin = 'dracula.theme';
+$cfg_file = "/boot/config/plugins/{$plugin}/{$plugin}.cfg";
+$enabled = false;
+
+if (file_exists($cfg_file)) {
+  $cfg = parse_ini_file($cfg_file);
+  $enabled = ($cfg['SERVICE'] ?? 'disabled') === 'enabled';
+}
+
+if ($enabled) {
+  $css_file = "/usr/local/emhttp/plugins/{$plugin}/dracula-theme.css";
+  if (file_exists($css_file)) {
+    $v = filemtime($css_file);
+    echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"/plugins/{$plugin}/dracula-theme.css?v={$v}\">\n";
+  }
+}
+?>
+]]>
+</INLINE>
+</FILE>
+
+<!-- DOWNLOAD CSS from GitHub and install -->
+<FILE Run="/bin/bash">
+<INLINE>
+# Download latest CSS from GitHub
+wget -q -O /boot/config/plugins/&name;/dracula-theme.css "https://raw.githubusercontent.com/charro0407/unraid-dracula/main/dracula-theme.css"
+
+# Copy to web-accessible location
+cp /boot/config/plugins/&name;/dracula-theme.css /usr/local/emhttp/plugins/&name;/dracula-theme.css
+
+echo "Dracula Theme for Unraid installed successfully!"
+exit 0
+</INLINE>
+</FILE>
+
+<!-- REMOVE SCRIPT -->
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+echo "Removing Dracula Theme..."
+rm -rf /usr/local/emhttp/plugins/&name;
+# Keep config on flash for reinstall, but remove CSS
+rm -f /boot/config/plugins/&name;/dracula-theme.css
+echo "Dracula Theme removed."
+exit 0
+</INLINE>
+</FILE>
+
+</PLUGIN>

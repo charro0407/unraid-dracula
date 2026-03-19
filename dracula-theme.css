@@ -1,0 +1,887 @@
+/*
+ * Dracula Theme for Unraid 7.2+
+ * https://draculatheme.com
+ *
+ * Official Dracula Palette:
+ * Background:    #282A36
+ * Current Line:  #44475A
+ * Selection:     #44475A
+ * Foreground:    #F8F8F2
+ * Comment:       #6272A4
+ * Cyan:          #8BE9FD
+ * Green:         #50FA7B
+ * Orange:        #FFB86C
+ * Pink:          #FF79C6
+ * Purple:        #BD93F9
+ * Red:           #FF5555
+ * Yellow:        #F1FA8C
+ */
+
+/* ============================================================
+   CSS Custom Properties Override
+   ============================================================ */
+:root {
+  /* --- Dracula palette tokens --- */
+  --dracula-bg:           #282A36;
+  --dracula-current-line: #44475A;
+  --dracula-selection:    #44475A;
+  --dracula-fg:           #F8F8F2;
+  --dracula-comment:      #6272A4;
+  --dracula-cyan:         #8BE9FD;
+  --dracula-green:        #50FA7B;
+  --dracula-orange:       #FFB86C;
+  --dracula-pink:         #FF79C6;
+  --dracula-purple:       #BD93F9;
+  --dracula-red:          #FF5555;
+  --dracula-yellow:       #F1FA8C;
+
+  /* Derived shades (from Dracula UI spec) */
+  --dracula-bg-darkest:   #191A21;
+  --dracula-bg-darker:    #282A36;
+  --dracula-bg-lighter:   #343746;
+  --dracula-bg-light:     #3E4155;
+  --dracula-border:       #44475A;
+  --dracula-subtle:       rgba(255, 255, 255, 0.05);
+  --dracula-hover:        rgba(255, 255, 255, 0.08);
+
+  /* --- Unraid color palette overrides --- */
+  --black:   #21222C;
+  --white:   #F8F8F2;
+  --gray-100: #F8F8F2;
+  --gray-200: #BFBFBF;
+  --gray-300: #6272A4;
+  --gray-400: #6272A4;
+  --gray-500: #44475A;
+  --gray-600: #44475A;
+  --gray-700: #343746;
+  --gray-800: #282A36;
+  --gray-900: #21222C;
+
+  /* --- Color scale overrides --- */
+  --orange-100: #FFB86C33;
+  --orange-200: #FFB86C55;
+  --orange-300: #FFB86C88;
+  --orange-400: #FFB86CBB;
+  --orange-500: #FFB86C;
+  --orange-600: #FFB86C;
+  --orange-700: #E5A35B;
+  --orange-800: #CC8F4A;
+  --orange-900: #B27A39;
+
+  --red-100: #FF555533;
+  --red-200: #FF555555;
+  --red-300: #FF555588;
+  --red-400: #FF5555BB;
+  --red-500: #FF5555;
+  --red-600: #FF5555;
+  --red-700: #E54B4B;
+  --red-800: #CC4040;
+  --red-900: #B23636;
+
+  --green-100: #50FA7B33;
+  --green-200: #50FA7B55;
+  --green-300: #50FA7B88;
+  --green-400: #50FA7BBB;
+  --green-500: #50FA7B;
+  --green-600: #50FA7B;
+  --green-700: #44D868;
+  --green-800: #38B656;
+  --green-900: #2C9444;
+
+  --blue-100: #BD93F933;
+  --blue-200: #BD93F955;
+  --blue-300: #BD93F988;
+  --blue-400: #BD93F9BB;
+  --blue-500: #BD93F9;
+  --blue-600: #BD93F9;
+  --blue-700: #A77FE0;
+  --blue-800: #916CC7;
+  --blue-900: #7B59AE;
+
+  --yellow-100: #F1FA8C33;
+  --yellow-200: #F1FA8C55;
+  --yellow-300: #F1FA8C88;
+  --yellow-400: #F1FA8CBB;
+  --yellow-500: #F1FA8C;
+
+  /* --- Opacity variants --- */
+  --black-opacity-05: rgba(33, 34, 44, 0.05);
+  --black-opacity-10: rgba(33, 34, 44, 0.1);
+  --black-opacity-15: rgba(33, 34, 44, 0.15);
+  --black-opacity-20: rgba(33, 34, 44, 0.2);
+  --black-opacity-25: rgba(33, 34, 44, 0.25);
+  --black-opacity-30: rgba(33, 34, 44, 0.3);
+  --white-opacity-05: rgba(248, 248, 242, 0.05);
+  --white-opacity-10: rgba(248, 248, 242, 0.1);
+  --white-opacity-15: rgba(248, 248, 242, 0.15);
+  --white-opacity-20: rgba(248, 248, 242, 0.2);
+  --white-opacity-25: rgba(248, 248, 242, 0.25);
+  --white-opacity-30: rgba(248, 248, 242, 0.3);
+  --white-opacity-50: rgba(248, 248, 242, 0.5);
+  --white-opacity-60: rgba(248, 248, 242, 0.6);
+  --white-opacity-70: rgba(248, 248, 242, 0.7);
+  --white-opacity-80: rgba(248, 248, 242, 0.8);
+  --white-opacity-90: rgba(248, 248, 242, 0.9);
+
+  /* --- Text --- */
+  --text-color:             var(--dracula-fg);
+  --alt-text-color:         var(--dracula-comment);
+  --disabled-text-color:    var(--dracula-comment);
+  --inverse-text-color:     var(--dracula-bg);
+  --link-text-color:        var(--dracula-purple);
+  --blockquote-text-color:  var(--dracula-comment);
+
+  /* --- Backgrounds --- */
+  --background-color:               var(--dracula-bg-darker);
+  --mild-background-color:          #23242E;
+  --opac-background-color:          rgba(33, 34, 44, 0.95);
+  --inverse-background-color:       var(--dracula-fg);
+  --footer-background-color:        var(--dracula-bg-darkest);
+  --dashboard-background-color:     var(--dracula-bg-darkest);
+  --title-header-background-color:  var(--dracula-current-line);
+  --shade-bg-color:                 var(--dracula-bg-darkest);
+
+  /* --- Header / Banner --- */
+  --header-text-color:        var(--dracula-fg);
+  --header-text-primary:      var(--dracula-fg);
+  --header-text-secondary:    var(--dracula-comment);
+  --header-background-color:  var(--dracula-bg-darkest);
+
+  /* --- Tables --- */
+  --table-background-color:             var(--dracula-bg);
+  --table-header-background-color:      var(--dracula-current-line);
+  --table-border-color:                 var(--dracula-border);
+  --hover-table-row-background-color:   var(--dracula-bg-lighter);
+
+  /* --- Inputs / Forms --- */
+  --input-bg-color:             var(--dracula-bg-lighter);
+  --focus-input-bg-color:       var(--dracula-current-line);
+  --input-border-color:         var(--dracula-border);
+  --disabled-input-border-color: var(--dracula-comment);
+  --textarea-border-color:      var(--dracula-border);
+
+  /* --- Buttons --- */
+  --button-text-color:          var(--dracula-fg);
+  --button-border:              var(--dracula-purple);
+  --button-background:          var(--dracula-current-line);
+  --hover-button-text-color:    var(--dracula-bg);
+  --hover-button-background:    var(--dracula-purple);
+  --hover-button-border:        var(--dracula-purple);
+
+  /* --- Borders & Misc --- */
+  --border-color:     var(--dracula-border);
+  --hr-color:         var(--dracula-border);
+  --brand-orange:     var(--dracula-orange);
+  --brand-red:        var(--dracula-red);
+  --scrollbar-color:  var(--dracula-comment);
+  --checkbox-color:   var(--dracula-purple);
+  --small-shadow:     0 1px 3px rgba(0, 0, 0, 0.3);
+
+  /* --- Unraid 7.2 Tailwind color overrides --- */
+  --color-border:               var(--dracula-border);
+  --color-alpha:                #FF79C6;
+  --color-beta:                 var(--dracula-fg);
+  --color-gamma:                var(--dracula-bg);
+  --color-gamma-opaque:         rgba(40, 42, 54, 0.3);
+  --color-header-text-primary:  var(--dracula-fg);
+  --color-header-text-secondary: var(--dracula-comment);
+}
+
+/* ============================================================
+   Global base styles
+   ============================================================ */
+/* Override Theme--black specificity for Tailwind vars */
+.Theme--black,
+.Theme--black.dark {
+  --color-alpha: #FF79C6 !important;
+  --color-beta: #F8F8F2 !important;
+  --color-gamma: #282A36 !important;
+  --color-gamma-opaque: rgba(40, 42, 54, 0.3) !important;
+}
+
+/* Override Tailwind vars inside .unapi (notification panel, user profile) */
+.unapi,
+.unapi.dark {
+  /* HSL-based vars used by hsl(var(--name)) pattern */
+  --primary: 265 89% 78% !important;           /* Purple #BD93F9 */
+  --background: 231 15% 18% !important;         /* #282A36 */
+  --foreground: 60 30% 96% !important;          /* #F8F8F2 */
+  --muted: 232 14% 31% !important;              /* #44475A */
+  --muted-foreground: 225 27% 51% !important;   /* #6272A4 */
+  --accent: 232 14% 31% !important;             /* #44475A */
+  --border: 232 14% 31% !important;             /* #44475A */
+
+  /* Direct color vars */
+  --color-alpha: #BD93F9 !important;
+  --color-beta: #F8F8F2 !important;
+  --color-gamma: #6272A4 !important;
+  --color-gamma-opaque: rgba(98, 114, 164, 0.5) !important;
+  --color-border: #44475A !important;
+  --color-background: #282A36 !important;
+  --color-foreground: #F8F8F2 !important;
+  --color-orange: #BD93F9 !important;
+  --color-orange-500: #BD93F9 !important;
+  --color-orange-dark: #A77FE0 !important;
+  --color-primary-500: #BD93F9 !important;
+  --color-primary-600: #A77FE0 !important;
+  --color-primary-700: #916CC7 !important;
+  --color-header-text-primary: #F8F8F2 !important;
+  --color-header-text-secondary: #6272A4 !important;
+}
+
+body {
+  background-color: var(--dracula-bg-darker) !important;
+  color: var(--dracula-fg) !important;
+}
+
+/* ============================================================
+   Header / Navigation
+   ============================================================ */
+#header {
+  background-color: var(--dracula-bg-darkest) !important;
+  border-bottom: 1px solid var(--dracula-border) !important;
+}
+
+/* Replace Unraid logo with Dracula gradient version */
+#header a[href="https://unraid.net"] img {
+  content: url("data:image/svg+xml,%3Csvg%20width%3D%22400%22%20height%3D%2280%22%20viewBox%3D%220%200%20400%2080%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20clip-path%3D%22url%28%23clip0_1_2%29%22%3E%3Cpath%20d%3D%22M41.6457%204.57143V50.2629C41.6457%2059.5657%2035.9086%2064.5029%2026.6057%2064.5029C17.3029%2064.5029%2011.7486%2059.5657%2011.7486%2050.2629V4.57143H-7.62939e-06V50.2629C-7.62939e-06%2066.1714%2010.2171%2074.6514%2026.2171%2074.7886H26.9943C43.2%2074.6743%2053.4171%2066.1714%2053.4171%2050.2629V4.57143H41.6457ZM121.349%204.57143V52.2514L90.7429%204.57143H79.7486V73.8286H91.52V26.1257L122.194%2073.7829H133.166V4.57143H121.371H121.349ZM159.817%204.57143V73.8286H171.589V14.7429H183.931C190.766%2014.7429%20195.109%2018.0114%20195.109%2026.8114C195.109%2035.6114%20190.766%2038.9714%20183.931%2038.9714H177.851L194.423%2073.7829H207.977L194.811%2047.5886C202.629%2044.7086%20207.291%2038.08%20207.291%2026.7886C207.291%2011.3143%20198.354%204.66285%20184.709%204.54857H159.794L159.817%204.57143ZM249.92%204.57143L225.783%2073.8286H237.44L242.88%2057.6H263.886L260.457%2047.4057H246.057L256.549%2017.0286L275.634%2073.8057H288.389L264.229%204.57143H249.897H249.92ZM308.114%2073.8286H319.886V4.57143H308.114V73.8286ZM358.354%2014.7657H372.891C382.263%2014.7657%20388.206%2019.9086%20388.206%2029.3943V49.0057C388.206%2058.5143%20382.263%2063.5429%20372.686%2063.5429H358.354V14.7657ZM346.583%204.59428V73.8286H372.709C389.417%2073.8286%20400%2065.2343%20400%2049.0057V29.4171C400%2013.3257%20389.577%204.73143%20373.28%204.57143H346.583V4.59428Z%22%20fill%3D%22url%28%23paint0_linear_1_2%29%22%2F%3E%3C%2Fg%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22paint0_linear_1_2%22%20x1%3D%22-7.62939e-06%22%20y1%3D%224.54857%22%20x2%3D%22400%22%20y2%3D%224.54857%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%3Cstop%20stop-color%3D%22%23BD93F9%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23FF79C6%22%2F%3E%3C%2FlinearGradient%3E%3CclipPath%20id%3D%22clip0_1_2%22%3E%3Crect%20width%3D%22400%22%20height%3D%2280%22%20fill%3D%22white%22%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%3C%2Fsvg%3E") !important;
+}
+
+/* Header icons and text — override Tailwind dark defaults */
+#header svg,
+#header i {
+  color: var(--dracula-fg) !important;
+  fill: var(--dracula-fg) !important;
+}
+
+.text-header-text-primary {
+  color: var(--dracula-fg) !important;
+}
+
+.text-header-text-secondary {
+  color: var(--dracula-comment) !important;
+}
+
+/* Navigation tabs */
+.nav-tab,
+.nav-item a {
+  color: var(--dracula-fg) !important;
+}
+
+.nav-tab:hover,
+.nav-item a:hover {
+  color: var(--dracula-cyan) !important;
+}
+
+.nav-tab.active,
+.nav-item.active > a {
+  color: var(--dracula-purple) !important;
+  border-bottom-color: var(--dracula-purple) !important;
+}
+
+/* ============================================================
+   Sidebar (for gray/azure based layouts)
+   ============================================================ */
+.sidebar,
+.shade {
+  background-color: var(--dracula-bg-darkest) !important;
+}
+
+.sidebar a,
+.shade a {
+  color: var(--dracula-fg) !important;
+}
+
+.sidebar a:hover,
+.shade a:hover {
+  color: var(--dracula-purple) !important;
+  background-color: var(--dracula-current-line) !important;
+}
+
+.sidebar .active > a,
+.shade .active > a {
+  color: var(--dracula-purple) !important;
+  background-color: var(--dracula-current-line) !important;
+}
+
+/* ============================================================
+   Page titles
+   ============================================================ */
+div.title {
+  background-color: var(--dracula-current-line) !important;
+  color: var(--dracula-fg) !important;
+  border-bottom: 1px solid var(--dracula-border) !important;
+}
+
+div.title > span.left > a {
+  color: var(--dracula-fg) !important;
+}
+
+/* ============================================================
+   Links
+   ============================================================ */
+a {
+  color: var(--dracula-purple);
+}
+
+a:hover {
+  color: var(--dracula-pink);
+}
+
+a:visited {
+  color: var(--dracula-purple);
+}
+
+/* ============================================================
+   Tables — scoped to data tables, not dashboard widgets
+   ============================================================ */
+table {
+  border-color: var(--dracula-border) !important;
+}
+
+thead th,
+table.share_status thead td,
+table.disk_status thead td {
+  background-color: var(--dracula-current-line) !important;
+  color: var(--dracula-fg) !important;
+  border-color: var(--dracula-border) !important;
+}
+
+/* Only apply striping/hover to explicit data tables (settings, shares, disks) */
+table.tablesorter tbody tr,
+table.share_status tbody tr,
+table.disk_status tbody tr {
+  background-color: var(--dracula-bg) !important;
+}
+
+table.tablesorter tbody tr:nth-child(even),
+table.share_status tbody tr:nth-child(even),
+table.disk_status tbody tr:nth-child(even) {
+  background-color: var(--dracula-bg-lighter) !important;
+}
+
+table.tablesorter tbody tr:hover,
+table.share_status tbody tr:hover,
+table.disk_status tbody tr:hover {
+  background-color: var(--dracula-current-line) !important;
+}
+
+td, th {
+  border-color: var(--dracula-border) !important;
+  color: var(--dracula-fg) !important;
+}
+
+/* Dashboard tables (CPU list, etc.) — no striping or hover */
+table.dashboard tbody tr,
+table.dashboard tbody tr:nth-child(even),
+table.dashboard tbody tr:nth-child(odd) {
+  background-color: transparent !important;
+}
+
+table.dashboard tbody tr:hover {
+  background-color: transparent !important;
+}
+
+/* Hide stopgap borders between dashboard tiles */
+td.stopgap {
+  border: none !important;
+}
+
+/* Remove left border on dashboard tbody (causes vertical lines between tiles) */
+table.dashboard tbody {
+  border-left: none !important;
+}
+
+/* CPU bar spans — match tile background */
+table.dashboard span.dashboard {
+  background-color: #23242E !important;
+}
+
+/* ============================================================
+   Forms & Inputs
+   ============================================================ */
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="date"],
+textarea,
+select {
+  background-color: var(--dracula-bg-lighter) !important;
+  color: var(--dracula-fg) !important;
+  border: 1px solid var(--dracula-border) !important;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  background-color: var(--dracula-current-line) !important;
+  border-color: var(--dracula-purple) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(189, 147, 249, 0.25) !important;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled,
+button:disabled,
+.button:disabled,
+input[type="button"]:disabled,
+input[type="submit"]:disabled,
+input[type="reset"]:disabled {
+  background-color: var(--dracula-bg) !important;
+  color: var(--dracula-comment) !important;
+  border-color: var(--dracula-comment) !important;
+  cursor: not-allowed !important;
+  opacity: 0.5 !important;
+}
+
+input[type="button"]:disabled:hover,
+input[type="submit"]:disabled:hover,
+input[type="reset"]:disabled:hover,
+button:disabled:hover,
+.button:disabled:hover {
+  background-color: var(--dracula-bg) !important;
+  color: var(--dracula-comment) !important;
+  border-color: var(--dracula-comment) !important;
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+button,
+.button {
+  background-color: var(--dracula-current-line) !important;
+  color: var(--dracula-fg) !important;
+  border: 1px solid var(--dracula-purple) !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+button:hover,
+.button:hover {
+  background-color: var(--dracula-purple) !important;
+  color: var(--dracula-bg) !important;
+  border-color: var(--dracula-purple) !important;
+}
+
+input[type="button"]:active,
+input[type="submit"]:active,
+button:active,
+.button:active {
+  background-color: var(--dracula-pink) !important;
+  border-color: var(--dracula-pink) !important;
+}
+
+/* Primary / important buttons */
+.button.primary,
+input[type="submit"] {
+  background-color: var(--dracula-purple) !important;
+  color: var(--dracula-bg) !important;
+  border-color: var(--dracula-purple) !important;
+}
+
+.button.primary:hover,
+input[type="submit"]:hover {
+  background-color: var(--dracula-pink) !important;
+  border-color: var(--dracula-pink) !important;
+}
+
+/* ============================================================
+   Dashboard
+   ============================================================ */
+.dashboard {
+  background-color: var(--dracula-bg-darkest) !important;
+}
+
+/* Dashboard column wrappers */
+.tile {
+  background-color: transparent !important;
+  border: none !important;
+  height: fit-content !important;
+  align-self: start !important;
+}
+
+.panel {
+  background-color: transparent !important;
+  border: none !important;
+  height: fit-content !important;
+  align-self: start !important;
+}
+
+/* Individual dashboard boxes (tbody sections) */
+table.dashboard > tbody {
+  background-color: #23242E !important;
+}
+
+/* Separator between tbody boxes — use border-top as divider with gap */
+table.dashboard > tbody + tbody {
+  border-top: 10px solid transparent !important;
+}
+
+/* Round the first and last rows of each tbody to simulate border-radius */
+table.dashboard > tbody > tr:first-child > td {
+  border-top: 1px solid var(--dracula-border) !important;
+}
+
+table.dashboard > tbody > tr:last-child > td {
+  border-bottom: 1px solid var(--dracula-border) !important;
+}
+
+table.dashboard > tbody > tr > td:first-child {
+  border-left: 1px solid var(--dracula-border) !important;
+}
+
+table.dashboard > tbody > tr > td:last-child {
+  border-right: 1px solid var(--dracula-border) !important;
+}
+
+/* Dashboard tables inside tiles */
+table.dashboard {
+  background-color: transparent !important;
+}
+
+/* ============================================================
+   Progress bars
+   ============================================================ */
+.usage-bar,
+.progress {
+  background-color: var(--dracula-current-line) !important;
+  border-radius: 4px !important;
+  overflow: hidden !important;
+}
+
+.usage-bar > span,
+.progress-bar {
+  background-color: var(--dracula-purple) !important;
+}
+
+/* Usage color states */
+.usage-bar.warning > span {
+  background-color: var(--dracula-orange) !important;
+}
+
+.usage-bar.critical > span {
+  background-color: var(--dracula-red) !important;
+}
+
+/* ============================================================
+   Status indicators
+   ============================================================ */
+.started,
+.online,
+.running {
+  color: var(--dracula-green) !important;
+}
+
+.stopped,
+.offline {
+  color: var(--dracula-red) !important;
+}
+
+.standby,
+.paused {
+  color: var(--dracula-yellow) !important;
+}
+
+/* Text color classes */
+.orange-text {
+  color: var(--dracula-yellow) !important;
+}
+
+.green-text {
+  color: var(--dracula-green) !important;
+}
+
+.red-text {
+  color: var(--dracula-red) !important;
+}
+
+.yellow-text {
+  color: var(--dracula-yellow) !important;
+}
+
+.blue-text {
+  color: var(--dracula-cyan) !important;
+}
+
+/* Green orbs / status dots */
+.green-orb,
+.orb.green,
+i.fa-circle.green-text,
+i.fa-circle.green-orb {
+  color: var(--dracula-green) !important;
+}
+
+/* ============================================================
+   Dropdown menus & context menus
+   ============================================================ */
+.context-menu,
+.dropdown-menu,
+.dropdown-context,
+ul.dropdown-context,
+ul.dropdown-menu {
+  background-color: var(--dracula-bg) !important;
+  border: 1px solid var(--dracula-border) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+.context-menu a,
+.dropdown-menu a,
+.dropdown-context a,
+.fa-ul a {
+  color: var(--dracula-fg) !important;
+  background-color: transparent !important;
+}
+
+.context-menu li,
+.dropdown-menu li,
+.dropdown-context li {
+  color: var(--dracula-fg) !important;
+  background-color: transparent !important;
+}
+
+.context-menu li:hover,
+.dropdown-menu li:hover,
+.dropdown-context li:hover,
+.context-menu li:hover > a,
+.dropdown-menu li:hover > a,
+.dropdown-context li:hover > a,
+.dropdown-menu li > a:hover,
+.dropdown-menu li > a:focus,
+.dropdown-submenu:hover > a {
+  background-image: none !important;
+}
+
+.dropdown-menu li > a:hover,
+.dropdown-menu li > a:focus,
+.dropdown-submenu:hover > a,
+.dropdown-menu .active > a,
+.dropdown-menu .active > a:hover,
+.dropdown-context .dropdown-submenu:hover > a,
+.fa-ul li:hover,
+.fa-ul li:hover > a {
+  background-color: var(--dracula-current-line) !important;
+  color: var(--dracula-fg) !important;
+}
+
+/* Dropdown dividers */
+.context-menu .divider,
+.dropdown-menu .divider,
+.dropdown-context .divider {
+  background-color: var(--dracula-border) !important;
+  border: none !important;
+  height: 1px !important;
+}
+
+/* ============================================================
+   Sweet Alert dialogs
+   ============================================================ */
+.sweet-alert {
+  background-color: var(--dracula-bg) !important;
+  border: 1px solid var(--dracula-border) !important;
+}
+
+.sweet-alert h2 {
+  color: var(--dracula-fg) !important;
+}
+
+.sweet-alert p {
+  color: var(--dracula-comment) !important;
+}
+
+.sweet-alert .sa-button-container .confirm {
+  background-color: var(--dracula-purple) !important;
+  color: var(--dracula-bg) !important;
+}
+
+.sweet-alert .sa-button-container .cancel {
+  background-color: var(--dracula-current-line) !important;
+  color: var(--dracula-fg) !important;
+}
+
+.sweet-overlay {
+  background-color: rgba(33, 34, 44, 0.7) !important;
+}
+
+/* ============================================================
+   Scrollbar
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dracula-bg-darkest);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--dracula-comment);
+  border-radius: 5px;
+  border: 2px solid var(--dracula-bg-darkest);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--dracula-purple);
+}
+
+/* ============================================================
+   Checkboxes & Toggle switches
+   ============================================================ */
+.switch-button-background.checked {
+  background-color: var(--dracula-purple) !important;
+}
+
+input[type="checkbox"]:checked + label::before {
+  background-color: var(--dracula-purple) !important;
+  border-color: var(--dracula-purple) !important;
+}
+
+/* ============================================================
+   Tooltips
+   ============================================================ */
+.tooltip,
+[data-tooltip]::after {
+  background-color: var(--dracula-current-line) !important;
+  color: var(--dracula-fg) !important;
+  border: 1px solid var(--dracula-border) !important;
+}
+
+/* ============================================================
+   File tree
+   ============================================================ */
+.jqueryFileTree li a {
+  color: var(--dracula-fg) !important;
+}
+
+.jqueryFileTree li a:hover {
+  color: var(--dracula-purple) !important;
+  background-color: var(--dracula-current-line) !important;
+}
+
+/* ============================================================
+   jQuery UI elements
+   ============================================================ */
+.ui-widget-content {
+  background-color: var(--dracula-bg) !important;
+  color: var(--dracula-fg) !important;
+  border-color: var(--dracula-border) !important;
+}
+
+.ui-widget-header {
+  background-color: var(--dracula-current-line) !important;
+  color: var(--dracula-fg) !important;
+  border-color: var(--dracula-border) !important;
+}
+
+.ui-state-active,
+.ui-state-active a {
+  background-color: var(--dracula-purple) !important;
+  color: var(--dracula-bg) !important;
+}
+
+.ui-state-hover,
+.ui-state-hover a {
+  background-color: var(--dracula-current-line) !important;
+  color: var(--dracula-purple) !important;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+  background-color: var(--dracula-bg) !important;
+  border-bottom-color: var(--dracula-bg) !important;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active a {
+  color: var(--dracula-purple) !important;
+}
+
+/* ============================================================
+   Font Awesome icons — accent coloring
+   ============================================================ */
+.fa-lock,
+.fa-shield {
+  color: var(--dracula-green) !important;
+}
+
+.fa-warning,
+.fa-exclamation-triangle {
+  color: var(--dracula-orange) !important;
+}
+
+/* ============================================================
+   Notifications / Banners
+   ============================================================ */
+.notice,
+.alert-info {
+  background-color: rgba(98, 114, 164, 0.15) !important;
+  border-left: 4px solid var(--dracula-comment) !important;
+  color: var(--dracula-fg) !important;
+}
+
+.warning,
+.alert-warning {
+  background-color: rgba(255, 184, 108, 0.15) !important;
+  border-left: 4px solid var(--dracula-orange) !important;
+  color: var(--dracula-fg) !important;
+}
+
+.error,
+.alert-danger {
+  background-color: rgba(255, 85, 85, 0.15) !important;
+  border-left: 4px solid var(--dracula-red) !important;
+  color: var(--dracula-fg) !important;
+}
+
+.success,
+.alert-success {
+  background-color: rgba(80, 250, 123, 0.15) !important;
+  border-left: 4px solid var(--dracula-green) !important;
+  color: var(--dracula-fg) !important;
+}
+
+/* ============================================================
+   Selection highlight
+   ============================================================ */
+::selection {
+  background-color: var(--dracula-selection) !important;
+  color: var(--dracula-fg) !important;
+}
+
+::-moz-selection {
+  background-color: var(--dracula-selection) !important;
+  color: var(--dracula-fg) !important;
+}
+
+/* ============================================================
+   Code / Pre blocks
+   ============================================================ */
+pre,
+code,
+.code {
+  background-color: var(--dracula-bg-darker) !important;
+  color: var(--dracula-fg) !important;
+  border: 1px solid var(--dracula-border) !important;
+  border-radius: 4px !important;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+#footer {
+  background-color: var(--dracula-bg-darkest) !important;
+  color: var(--dracula-comment) !important;
+  border-top: 1px solid var(--dracula-border) !important;
+}

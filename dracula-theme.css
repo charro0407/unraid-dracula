@@ -460,6 +460,7 @@ input[type="reset"],
 button,
 .button {
   background-color: var(--dracula-current-line) !important;
+  background-image: none !important;
   color: var(--dracula-fg) !important;
   border: 1px solid var(--dracula-purple) !important;
   border-radius: 4px !important;
@@ -473,6 +474,7 @@ input[type="reset"]:hover,
 button:hover,
 .button:hover {
   background-color: var(--dracula-purple) !important;
+  background-image: none !important;
   color: var(--dracula-bg) !important;
   border-color: var(--dracula-purple) !important;
 }
@@ -482,6 +484,7 @@ input[type="submit"]:active,
 button:active,
 .button:active {
   background-color: var(--dracula-pink) !important;
+  background-image: none !important;
   border-color: var(--dracula-pink) !important;
 }
 
@@ -489,6 +492,7 @@ button:active,
 .button.primary,
 input[type="submit"] {
   background-color: var(--dracula-purple) !important;
+  background-image: none !important;
   color: var(--dracula-bg) !important;
   border-color: var(--dracula-purple) !important;
 }
@@ -496,6 +500,7 @@ input[type="submit"] {
 .button.primary:hover,
 input[type="submit"]:hover {
   background-color: var(--dracula-pink) !important;
+  background-image: none !important;
   border-color: var(--dracula-pink) !important;
 }
 

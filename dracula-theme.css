@@ -878,6 +878,72 @@ code,
 }
 
 /* ============================================================
+   XML / Code syntax highlighting — Dracula colors
+   ============================================================ */
+/* Red attributes -> Dracula Green */
+pre span[style*="color: red"],
+pre span[style*="color:red"],
+pre font[color="red"],
+pre font[color="#ff0000"],
+pre font[color="RED"],
+pre .red {
+  color: var(--dracula-green) !important;
+}
+
+/* Blue values -> Dracula Cyan */
+pre span[style*="color: blue"],
+pre span[style*="color:blue"],
+pre font[color="blue"],
+pre font[color="#0000ff"],
+pre font[color="BLUE"],
+pre .blue {
+  color: var(--dracula-cyan) !important;
+}
+
+/* Green/teal tags -> Dracula Pink */
+pre span[style*="color: green"],
+pre span[style*="color:green"],
+pre span[style*="color: teal"],
+pre span[style*="color:teal"],
+pre font[color="green"],
+pre font[color="#008000"],
+pre font[color="teal"],
+pre font[color="#008080"],
+pre .green,
+pre .teal {
+  color: var(--dracula-pink) !important;
+}
+
+/* Maroon/brown -> Dracula Orange */
+pre span[style*="color: maroon"],
+pre span[style*="color:maroon"],
+pre span[style*="color: brown"],
+pre font[color="maroon"],
+pre font[color="#800000"],
+pre .maroon {
+  color: var(--dracula-orange) !important;
+}
+
+/* Purple -> Dracula Purple */
+pre span[style*="color: purple"],
+pre span[style*="color:purple"],
+pre font[color="purple"],
+pre font[color="#800080"],
+pre .purple {
+  color: var(--dracula-purple) !important;
+}
+
+/* Gray comments -> Dracula Comment */
+pre span[style*="color: gray"],
+pre span[style*="color:gray"],
+pre span[style*="color: grey"],
+pre font[color="gray"],
+pre font[color="#808080"],
+pre .gray {
+  color: var(--dracula-comment) !important;
+}
+
+/* ============================================================
    Footer
    ============================================================ */
 #footer {

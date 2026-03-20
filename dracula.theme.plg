@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "dracula.theme">
 <!ENTITY author    "Javier Glenn">
-<!ENTITY version   "2026.03.20l">
+<!ENTITY version   "2026.03.20m">
 <!ENTITY launch    "Settings/DraculaTheme">
 <!ENTITY pluginURL "https://github.com/charro0407/unraid-dracula/raw/refs/heads/main/dracula.theme.plg">
 ]>

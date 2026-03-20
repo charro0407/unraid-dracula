@@ -861,13 +861,13 @@ input[type="checkbox"]:checked + label::before {
    Selection highlight
    ============================================================ */
 ::selection {
-  background-color: var(--dracula-selection) !important;
-  color: var(--dracula-fg) !important;
+  background-color: var(--dracula-purple) !important;
+  color: var(--dracula-bg) !important;
 }
 
 ::-moz-selection {
-  background-color: var(--dracula-selection) !important;
-  color: var(--dracula-fg) !important;
+  background-color: var(--dracula-purple) !important;
+  color: var(--dracula-bg) !important;
 }
 
 /* ============================================================

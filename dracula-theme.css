@@ -248,10 +248,17 @@ body {
 }
 
 /* Header icons and text — override Tailwind dark defaults */
-#header svg,
+#header svg:not([class*="yellow"]):not([class*="red"]):not([class*="green"]),
 #header i {
   color: var(--dracula-fg) !important;
   fill: var(--dracula-fg) !important;
+}
+
+/* Header alert/warning badge */
+#header svg[class*="yellow"],
+#header .text-yellow-500 {
+  color: var(--dracula-yellow) !important;
+  fill: var(--dracula-yellow) !important;
 }
 
 .text-header-text-primary {

@@ -227,6 +227,15 @@
   --color-primary-700: #916CC7 !important;
   --color-header-text-primary: #F8F8F2 !important;
   --color-header-text-secondary: #6272A4 !important;
+
+  /* Radix UI menu highlight */
+  --accent-foreground: 60 30% 96% !important;   /* #F8F8F2 */
+}
+
+/* Radix UI data-highlighted menu items */
+.unapi [data-highlighted] {
+  background-color: var(--dracula-current-line) !important;
+  color: var(--dracula-fg) !important;
 }
 
 /* Override orange hover/focus/active states inside .unapi menus */
@@ -829,6 +838,14 @@ ul.dropdown-menu {
 
 .switch-button-button {
   border: none !important;
+}
+
+/* Switch wrapper spans — remove button styling */
+span.apps.button,
+span.vms.button {
+  border: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
 }
 
 input[type="checkbox"]:checked + label::before {

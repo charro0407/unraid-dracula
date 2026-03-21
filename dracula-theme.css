@@ -229,6 +229,71 @@
   --color-header-text-secondary: #6272A4 !important;
 }
 
+/* Override orange hover/focus/active states inside .unapi menus */
+.unapi .bg-orange,
+.unapi .hover\:bg-orange:hover,
+.unapi .focus\:bg-orange:focus,
+.unapi .active\:bg-orange:active {
+  background-color: var(--dracula-purple) !important;
+  background-image: none !important;
+}
+
+.unapi .bg-orange-dark,
+.unapi .hover\:bg-orange-dark:hover,
+.unapi .focus\:bg-orange-dark:focus,
+.unapi .active\:bg-orange-dark:active {
+  background-color: var(--dracula-purple) !important;
+  background-image: none !important;
+}
+
+.unapi .text-orange,
+.unapi .hover\:text-orange:hover,
+.unapi .focus\:text-orange:focus {
+  color: var(--dracula-purple) !important;
+}
+
+.unapi .text-orange-dark,
+.unapi .hover\:text-orange-dark:hover,
+.unapi .focus\:text-orange-dark:focus {
+  color: var(--dracula-purple) !important;
+}
+
+.unapi .border-orange,
+.unapi .hover\:border-orange:hover {
+  border-color: var(--dracula-purple) !important;
+}
+
+/* .unapi menu items hover */
+.unapi [role="menuitem"]:hover,
+.unapi [role="menuitem"]:focus {
+  background-color: var(--dracula-current-line) !important;
+  background-image: none !important;
+  color: var(--dracula-fg) !important;
+}
+
+/* .unapi primary/accent buttons */
+.unapi .bg-primary {
+  background-color: var(--dracula-purple) !important;
+}
+
+.unapi .bg-primary\/10,
+.unapi .bg-primary\/20 {
+  background-color: rgba(189, 147, 249, 0.15) !important;
+}
+
+.unapi .hover\:bg-primary\/90:hover {
+  background-color: var(--dracula-purple) !important;
+  background-image: none !important;
+}
+
+.unapi .text-primary {
+  color: var(--dracula-purple) !important;
+}
+
+.unapi .border-primary {
+  border-color: var(--dracula-purple) !important;
+}
+
 body {
   background-color: var(--dracula-bg-darker) !important;
   color: var(--dracula-fg) !important;

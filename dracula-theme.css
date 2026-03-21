@@ -529,7 +529,7 @@ button:disabled:hover,
 input[type="button"],
 input[type="submit"],
 input[type="reset"],
-button,
+button:not(.switch-button-button):not(.switch-button-background),
 .button {
   background-color: var(--dracula-current-line) !important;
   background-image: none !important;
@@ -818,8 +818,17 @@ ul.dropdown-menu {
 /* ============================================================
    Checkboxes & Toggle switches
    ============================================================ */
+/* Toggle switches */
+.switch-button-background {
+  border: none !important;
+}
+
 .switch-button-background.checked {
   background-color: var(--dracula-purple) !important;
+}
+
+.switch-button-button {
+  border: none !important;
 }
 
 input[type="checkbox"]:checked + label::before {
